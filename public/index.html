@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amil WhatsApp Token Loader</title>
+</head>
+<body>
+    <h1>Send WhatsApp Message</h1>
+    <form id="whatsappForm">
+        <input type="text" id="to" placeholder="Recipient Number (e.g., +1234567890)" required>
+        <input type="text" id="message" placeholder="Message" required>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <script>
+        document.getElementById('whatsappForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const to = document.getElementById('to').value;
+            const message = document.getElementById('message').value;
+
+            // Sending the request to your backend API
+            fetch('/send-whatsapp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    to: to,
+                    message: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Message sent successfully!');
+            })
+            .catch(error => {
+                alert('Error: ' + error);
+            });
+        });
+    </script>
+</body>
+</html>
